@@ -1,0 +1,5 @@
+credentials.json
+*token.json
+aggregated.json
+
+/node_modules/
