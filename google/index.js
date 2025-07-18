@@ -4,7 +4,7 @@ const path = require('path')
 const { authenticate } = require('@google-cloud/local-auth');
 const { google } = require('googleapis');
 
-const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly'];
+const SCOPES = ['https://www.googleapis.com/auth/gmail.readonly', 'https://www.googleapis.com/auth/gmail.send'];
 const CURR_DIR = dirname(__filename)
 const TOKEN_PATH = path.join(CURR_DIR, 'token.json');
 const CREDS_PATH = path.join(CURR_DIR, 'credentials.json');
@@ -23,6 +23,9 @@ async function save(creds) {
         client_secret: keys.client_secret,
         refresh_token: creds.credentials.refresh_token
     };
+    // if (fs.existsSync(TOKEN_PATH)) {
+    //     await fs.unlink(TOKEN_PATH)
+    // }
     await fs.writeFile(TOKEN_PATH, JSON.stringify(payload));
 }
 
