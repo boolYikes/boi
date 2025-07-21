@@ -10,4 +10,4 @@ The dee-livery boi 😣
 - [ ] UI for rss
 - [ ] UI for crawlers
 - [ ] More providers
-- [ ] Use access token instead of app password
+- [ ] Migration to a cluster

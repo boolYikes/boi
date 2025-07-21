@@ -1,27 +1,30 @@
-const fs = require('fs/promises');
-const { google } = require('googleapis');
+// const fs = require('fs/promises');
+// const { google } = require('googleapis');
 const nodemailer = require('nodemailer');
-require('dotenv').config();
 
-async function getOAuthClientFromToken() {
-  const tokenData = JSON.parse(await fs.readFile(process.env.TOKEN_PATH, 'utf-8'));
+// defaults to dev unless otherwise specified by docker compose
+const environment = process.env.EXC_ENV || 'dev';
+environment === 'dev' && require('dotenv').config();
 
-  const oAuth2Client = new google.auth.OAuth2(
-    tokenData.client_id,
-    tokenData.client_secret,
-    process.env.OAUTH_REDIRECT_URI
-  );
+// async function getOAuthClientFromToken() {
+//   const tokenData = JSON.parse(await fs.readFile(process.env.TOKEN_PATH, 'utf-8'));
 
-  oAuth2Client.setCredentials({
-    refresh_token: tokenData.refresh_token,
-  });
+//   const oAuth2Client = new google.auth.OAuth2(
+//     tokenData.client_id,
+//     tokenData.client_secret,
+//     process.env.OAUTH_REDIRECT_URI
+//   );
 
-  return oAuth2Client;
-}
+//   oAuth2Client.setCredentials({
+//     refresh_token: tokenData.refresh_token,
+//   });
+
+//   return oAuth2Client;
+// }
 
 async function sendMail({ to, subject, text }) {
-  const oAuth2Client = await getOAuthClientFromToken();
-  const accessTokenObj = await oAuth2Client.getAccessToken();
+  // const oAuth2Client = await getOAuthClientFromToken();
+  // const accessTokenObj = await oAuth2Client.getAccessToken();
 
   // const transporter = nodemailer.createTransport({
   //   service: 'gmail',
@@ -41,8 +44,6 @@ async function sendMail({ to, subject, text }) {
       pass: process.env.APP_PW
     }
   });
-
-
 
   const info = await transporter.sendMail({
     from: process.env.MAIL_USER,

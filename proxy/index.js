@@ -2,6 +2,9 @@ const sendMail = require("./utils");
 const express = require("express");
 const cors = require("cors");
 
+const environment = process.env.EXC_ENV || 'dev';
+environment === 'dev' && require('dotenv').config();
+
 app = express()
 app.use(cors())
 app.use(express.json())
@@ -17,4 +20,4 @@ app.post('/send', async (req, res) => {
     }
 })
 
-app.listen(3456, () => console.log('Mail proxy running on port 3456'));
+app.listen(process.env.PORT, () => console.log(`Mail proxy running on port ${process.env.PORT}`));

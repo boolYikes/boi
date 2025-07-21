@@ -1,0 +1,24 @@
+services:
+  mail_proxy:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    # image: xuanminator/mail-proxy:latest # maybe on a cluster, inside a manifest.
+    container_name: mail_proxy
+    environment:
+      - EXC_ENV=${prod}
+      - APP_PW=${APP_PW}
+      - TOKEN_PATH=${TOKEN_PATH}
+      - MAIL_USER=${MAIL_USER}
+      - OAUTH_REDIRECT_URI=${OAUTH_REDIRECT_URI}
+      - OAUTH_CLIENT_SECRET=${OAUTH_CLIENT_SECRET}
+      - OAUTH_CLIENT_ID=${OAUTH_CLIENT_ID}
+      - PORT=${PORT}
+    # ports:
+    #   - "3456:3456" # for host access
+    networks:
+      - shared_services
+
+networks:
+  shared_services:
+    external: true
