@@ -2,3 +2,4 @@
 .env
 **/node_modules/
 **/cached/
+aggregate.json
